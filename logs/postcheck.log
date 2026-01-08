@@ -1,0 +1,21 @@
+====POST CHECK====
+kernal
+5.15.0-164-generic
+
+uptime
+ 17:13:22 up 28 min,  1 user,  load average: 0.06, 0.08, 0.24
+
+failed services
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+0 loaded units listed.
+
+critical logs
+Jan 08 16:45:47 saji-Aspire-4730Z kernel: ata2.00: failed to set xfermode (err_mask=0x4)
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: ================================================================================
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: UBSAN: invalid-load in /build/linux-OPpfVT/linux-5.15.0/drivers/net/wireless/ath/ath5k/base.c:497:16
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: load of value 255 is not a valid value for type '_Bool'
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: ================================================================================
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: ================================================================================
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: UBSAN: invalid-load in /build/linux-OPpfVT/linux-5.15.0/drivers/net/wireless/ath/ath5k/base.c:488:16
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: load of value 255 is not a valid value for type '_Bool'
+Jan 08 16:46:17 saji-Aspire-4730Z kernel: ================================================================================

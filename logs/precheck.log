@@ -1,0 +1,24 @@
+====PRE-PATCH CHECKS====
+Thursday 08 January 2026 05:13:05 PM IST
+saji-Aspire-4730Z
+
+uptime:
+ 17:13:05 up 27 min,  1 user,  load average: 0.07, 0.09, 0.24
+
+Disk usage
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           190M  1.6M  188M   1% /run
+/dev/sda3       292G   14G  264G   5% /
+tmpfs           947M     0  947M   0% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+/dev/sda2       512M  6.1M  506M   2% /boot/efi
+tmpfs           190M   80K  190M   1% /run/user/1000
+
+memory usage
+               total        used        free      shared  buff/cache   available
+Mem:           1.8Gi       872Mi        87Mi        59Mi       932Mi       808Mi
+Swap:          2.2Gi       0.0Ki       2.2Gi
+
+failed services
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+0 loaded units listed.
