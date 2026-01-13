@@ -11,7 +11,6 @@ This repository focuses on structure, execution artifacts, and evidence.
 ---
 
 ## Project Structure
-
 linux-server-patching/
 ├── scripts/
 │   ├── diskcleanbasic.sh  # Pre-patch disk cleanup & space validation
