@@ -1,34 +1,57 @@
 # Linux Server Manual Patching – Project
 
-## Project Definition
-This project demonstrates **manual Linux server patching** using a **production-style approach**.  
-It follows real enterprise practices such as **pre-checks, controlled patching, post-validation, and logging**.
+Project Definition
+------------------
+This project demonstrates manual Linux server patching using a production-style approach.
+It follows real enterprise practices such as pre-checks, disk remediation, controlled patching,
+post-validation, and logging.
 
-A detailed **Standard Operating Procedure (SOP)** is maintained separately.  
-This repository focuses on **structure, execution artifacts, and evidence**.
+A detailed Standard Operating Procedure (SOP) is maintained separately.
+This repository focuses on structure, execution artifacts, and evidence.
 
----
+------------------------------------------------------------
 
-## Project Structure
+Project Structure
 ```
 linux-server-patching/
-├── scripts/
-│   ├── precheck.sh      # Pre-patching health checks
-│   ├── patching.sh      # Manual patch execution
-│   └── postcheck.sh     # Post-patching validation
-│
-├── logs/
-│   ├── precheck.log     # Pre-check output logs
-│   └── postcheck.log    # Post-check output logs
-│
-├── screenshots/         # Execution evidence & screenshots
+├── scripts
+│   ├── diskcleanbasic.sh
+│   ├── precheck.sh
+│   ├── patching.sh
+│   └── postcheck.sh
+├── logs
+│   ├── precheck.log
+│   └── postcheck.log
+├── screenshots
 └── README.md
 ```
+------------------------------------------------------------
 
----
+Workflow Overview
 
-## Summary
-- Mirrors **real-world Linux server patching**
-- Manual patching (no automation tools)
-- Production-style validation & logging
+1. Disk Cleanup & Space Validation
+   - Safely cleans APT cache and systemd journal logs
+   - Captures /var disk usage before and after cleanup
+   - Calculates reclaimed disk space for audit visibility
+
+2. Pre-Patching Checks
+   - Disk space, memory, OS version, and uptime validation
+   - Ensures system readiness before patching
+
+3. Manual Patch Execution
+   - Controlled package updates using native package manager
+   - No automation tools used (enterprise manual change model)
+
+4. Post-Patching Validation
+   - Confirms system health after patching
+   - Verifies no pending updates
+   - Captures execution evidence
+
+------------------------------------------------------------
+
+Summary
+- Mirrors real-world Linux server patching
+- Manual patching without automation tools
+- Production-style validation and logging
 - SOP-driven execution
+- Version-controlled operational scripts
