@@ -1,6 +1,7 @@
 # Linux Server Manual Patching – Project
 
-## Project Definition
+Project Definition
+------------------
 This project demonstrates manual Linux server patching using a production-style approach.
 It follows real enterprise practices such as pre-checks, disk remediation, controlled patching,
 post-validation, and logging.
@@ -8,26 +9,25 @@ post-validation, and logging.
 A detailed Standard Operating Procedure (SOP) is maintained separately.
 This repository focuses on structure, execution artifacts, and evidence.
 
----
+------------------------------------------------------------
 
-## Project Structure
+Project Structure
+
 linux-server-patching/
-├── scripts/
-│   ├── diskcleanbasic.sh  # Pre-patch disk cleanup & space validation
-│   ├── precheck.sh        # Pre-patching health checks
-│   ├── patching.sh        # Manual patch execution
-│   └── postcheck.sh       # Post-patching validation
-│
-├── logs/
-│   ├── precheck.log       # Pre-check output logs
-│   └── postcheck.log      # Post-check output logs
-│
-├── screenshots/           # Execution evidence & screenshots
+├── scripts
+│   ├── diskcleanbasic.sh
+│   ├── precheck.sh
+│   ├── patching.sh
+│   └── postcheck.sh
+├── logs
+│   ├── precheck.log
+│   └── postcheck.log
+├── screenshots
 └── README.md
 
----
+------------------------------------------------------------
 
-## Workflow Overview
+Workflow Overview
 
 1. Disk Cleanup & Space Validation
    - Safely cleans APT cache and systemd journal logs
@@ -47,9 +47,9 @@ linux-server-patching/
    - Verifies no pending updates
    - Captures execution evidence
 
----
+------------------------------------------------------------
 
-## Summary
+Summary
 - Mirrors real-world Linux server patching
 - Manual patching without automation tools
 - Production-style validation and logging
