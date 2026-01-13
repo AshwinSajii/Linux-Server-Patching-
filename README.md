@@ -12,7 +12,7 @@ This repository focuses on structure, execution artifacts, and evidence.
 ------------------------------------------------------------
 
 Project Structure
-
+```
 linux-server-patching/
 ├── scripts
 │   ├── diskcleanbasic.sh
@@ -24,7 +24,7 @@ linux-server-patching/
 │   └── postcheck.log
 ├── screenshots
 └── README.md
-
+```
 ------------------------------------------------------------
 
 Workflow Overview
