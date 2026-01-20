@@ -1,57 +1,122 @@
-# Linux Server Manual Patching – Project
+# Linux Server Patching Framework (v2)
 
-Project Definition
-------------------
-This project demonstrates manual Linux server patching using a production-style approach.
-It follows real enterprise practices such as pre-checks, disk remediation, controlled patching,
-post-validation, and logging.
+## Overview
+This project demonstrates a **production-style Linux server patching workflow**
+using shell scripts.  
+It focuses on **safe patching**, **impact analysis**, and **post-patch validation**
+rather than simply running package updates.
 
-A detailed Standard Operating Procedure (SOP) is maintained separately.
-This repository focuses on structure, execution artifacts, and evidence.
+The framework is designed to closely simulate how patching is performed
+in real enterprise Linux environments.
 
-------------------------------------------------------------
+---
 
-Project Structure
-```
-linux-server-patching/
-├── scripts
-│   ├── diskcleanbasic.sh
+## Key Features (v2)
+
+### Pre-Patch Validation
+- Server uptime and hostname verification
+- Disk usage and memory availability checks
+- Detection of pre-existing failed services (baseline)
+
+### Controlled Patch Execution
+- OS package update and upgrade
+- Secure handling of repositories
+- No forced service restarts during patching
+
+### Service State Snapshot
+- Captures running services **before** patching
+- Captures running services **after** patching
+- Compares both states to detect real service impact
+
+### Graceful Handling of Known Failed Services
+- Known failed services are explicitly defined
+- Pre-existing failures are excluded from validation
+- Only **new failures introduced by patching** are reported
+
+### Reboot Requirement Detection
+- Detects whether a reboot is required after patching
+- Prevents unnecessary downtime
+
+### Post-Patch Validation
+- Kernel version verification
+- Uptime verification
+- Critical system log scan
+- Service failure impact analysis
+
+### Patch Report Generation
+- Timestamped patch report
+- Disk usage summary
+- Reboot requirement status
+- Service impact summary
+- Suitable for change ticket evidence
+
+---
+
+## Directory Structure
+
+Linux-Server-Patching-/
+├── scripts/
 │   ├── precheck.sh
 │   ├── patching.sh
-│   └── postcheck.sh
-├── logs
-│   ├── precheck.log
-│   └── postcheck.log
-├── screenshots
+│   ├── service_snapshot_pre.sh
+│   ├── reboot_check.sh
+│   ├── service_snapshot_post.sh
+│   ├── report.sh
+│   ├── postcheck.sh
+│   └── known_failed_services.txt
+├── logs/
+│   ├── services_before.txt
+│   ├── services_after.txt
+│   ├── service_diff.txt
+│   ├── reboot_status.txt
+│   └── patch_report_YYYY-MM-DD_HHMM.txt
 └── README.md
-```
-------------------------------------------------------------
 
-Workflow Overview
+---
 
-1. Disk Cleanup & Space Validation
-   - Safely cleans APT cache and systemd journal logs
-   - Captures /var disk usage before and after cleanup
-   - Calculates reclaimed disk space for audit visibility
+## Execution Flow
 
-2. Pre-Patching Checks
-   - Disk space, memory, OS version, and uptime validation
-   - Ensures system readiness before patching
+Run the scripts in the following order:
 
-3. Manual Patch Execution
-   - Controlled package updates using native package manager
-   - No automation tools used (enterprise manual change model)
+./scripts/precheck.sh  
+./scripts/service_snapshot_pre.sh  
+./scripts/patching.sh  
+./scripts/reboot_check.sh  
+./scripts/service_snapshot_post.sh  
+./scripts/report.sh  
+./scripts/postcheck.sh  
 
-4. Post-Patching Validation
-   - Confirms system health after patching
-   - Verifies no pending updates
-   - Captures execution evidence
+---
 
-------------------------------------------------------------
+## Known Failed Services Handling
 
-Summary
-- Mirrors real-world Linux server patching
-- Manual patching without automation tools
-- Production-style validation and logging
-- SOP-driven execution
-- Version-controlled operational scripts
+Pre-existing failed services are listed in:
+
+scripts/known_failed_services.txt
+
+These services are excluded from post-patch validation so that
+only **newly introduced failures** are reported.
+
+---
+
+## Learning Outcomes
+
+This project demonstrates:
+- Safe Linux server patching practices
+- Change impact analysis
+- Reboot decision logic
+- Service health validation
+- Enterprise-style documentation and reporting
+
+---
+
+## Version History
+
+v1 – Basic patching with pre and post checks  
+v2 – Service impact analysis, graceful failure handling, reporting
+
+---
+
+## Disclaimer
+This project is intended for learning and demonstration purposes
+and should be adapted before use in production environments.
