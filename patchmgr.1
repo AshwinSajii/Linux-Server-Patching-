@@ -1,0 +1,75 @@
+.TH PATCHMGR 1 "February 2026" "PatchMgr 2.1.0" "System Administration"
+
+.SH NAME
+patchmgr \- Linux Patch Management Automation Tool
+
+.SH SYNOPSIS
+.B patchmgr
+[\fICOMMAND\fR] [\fIOPTIONS\fR]
+
+.SH DESCRIPTION
+PatchMgr is a modular Linux patch automation tool designed to perform
+pre-checks, apply updates, validate system state, and generate reports.
+
+It provides interactive and non-interactive patching modes with logging,
+reboot detection, and dry-run capabilities.
+
+.SH COMMANDS
+.TP
+.B precheck
+Run pre-patch validation checks including uptime, disk usage, memory usage,
+and failed services.
+
+.TP
+.B apply
+Apply available system updates.
+
+.TP
+.B postcheck
+Run post-patch validation checks including kernel version and failed services.
+
+.TP
+.B report
+Generate a patch summary report.
+
+.TP
+.B full
+Run the complete patch lifecycle:
+precheck → apply → postcheck → report.
+
+.TP
+.B version
+Display the PatchMgr version.
+
+.TP
+.B help
+Display usage information.
+
+.SH OPTIONS
+.TP
+.B -y, --yes
+Automatically confirm patching and reboot actions without prompting.
+
+.TP
+.B --dry-run
+Simulate patching without making changes. Shows upgradable packages only.
+
+.SH FILES
+.TP
+.I /var/log/patchmgr/
+Directory where patch logs and reports are stored.
+
+.SH EXIT STATUS
+.TP
+.B 0
+Successful execution.
+
+.TP
+.B 1
+An error occurred.
+
+.SH AUTHOR
+Ashwin Saji
+
+.SH COPYRIGHT
+This tool is provided for educational and automation purposes.
