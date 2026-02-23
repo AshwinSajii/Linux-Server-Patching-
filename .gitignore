@@ -1,2 +1,9 @@
+# Ignore runtime logs
 logs/
+*.log
+*.txt
+*.out
+
+# Ignore system files
+.DS_Storelogs/
 
