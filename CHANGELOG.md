@@ -1,9 +1,49 @@
 # Changelog
 
-All notable changes to this project are documented in this file.
+All notable changes to PatchMgr will be documented in this file.
 
 ---
 
+## [2.1.0] - 2026-02-23
+
+### Added
+- Proper argument parsing with support for:
+  - `--dry-run`
+  - `-y / --yes`
+- Auto reboot detection
+- Confirmation prompt before patching
+- Full patch lifecycle mode (`patchmgr full`)
+- Color-coded console output
+- Man page integration
+
+### Improved
+- Centralized logging to `/var/log/patchmgr`
+- Strict error handling using `set -euo pipefail`
+- Structured command handling
+- System-wide installation layout
+
+### Fixed
+- Library path resolution issue when installed system-wide
+- Flag parsing bug for `--dry-run`
+
+---
+
+## [2.0.0] - 2026-02-23
+
+### Added
+- Modular CLI structure
+- Precheck, apply, postcheck, report commands
+- Logging system
+- Root permission enforcement
+
+---
+
+## [1.0.0] - 2026-02-22
+
+### Initial Release
+- Basic patching script
+- Manual execution model
+- Basic service validation
 ## [v2.0] – 2026-01-20
 
 ### Added
