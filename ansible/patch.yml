@@ -1,0 +1,25 @@
+---
+- name: Linux Server Patching Automation
+  hosts: linux_servers
+  become: yes
+
+  tasks:
+
+    - name: Update DNF cache
+      dnf:
+        update_cache: yes
+
+    - name: Apply latest patches
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Check reboot requirement
+      command: needs-restarting -r
+      register: reboot_required
+      ignore_errors: yes
+
+    - name: Reboot if required
+      reboot:
+        msg: "Reboot triggered by Ansible patch automation"
+      when: reboot_required.rc == 1
