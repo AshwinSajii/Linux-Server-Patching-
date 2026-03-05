@@ -1,208 +1,136 @@
-# PatchMgr - Linux Patch Management Automation Tool
+# Linux Server Patching Automation (PatchMgr)
 
-PatchMgr is a modular Linux patch automation utility designed to simulate a structured production patch lifecycle.
+PatchMgr is a Linux patch management project that automates server updates using both **Bash scripting** and **Ansible automation**.
 
-It performs pre-check validation, applies updates, validates post-patch system state, and generates structured reports.
+The project demonstrates how Linux administrators can perform **system patching, kernel updates, and automated reboot handling** across servers.
 
-This project demonstrates Linux administration, automation workflow design, and operational best practices suitable for L2 Linux Administration roles.
-
----
-
-## 📌 Features
-
-- Pre-patch system validation
-- Disk usage and memory checks
-- Failed service detection
-- Automated patch application
-- Post-patch validation
-- Reboot requirement detection
-- Structured reporting
-- Dry-run simulation mode
-- Confirmation safety prompts
-- Full patch lifecycle automation (`patchmgr full`)
-- Man page integration
-- Centralized logging
+This repository combines **CLI-based patching tools** and **infrastructure automation with Ansible** to simulate real-world Linux maintenance workflows.
 
 ---
 
-## 🏗 Project Structure
+## Features
+
+* Automated Linux system patching
+* Kernel update detection
+* Conditional reboot handling
+* Ansible-based infrastructure automation
+* Patch execution audit capability
+* Modular project structure
+
+---
+
+## Technologies Used
+
+* Linux (RHEL / CentOS / Rocky Linux)
+* Bash scripting
+* Ansible
+* DNF package manager
+* System administration tools
+
+---
+
+## Project Structure
 
 ```
-
-Linux-Server-Patching-
-├── bin/
+Linux-Server-Patching
+├── ansible/        # Ansible automation for patching multiple servers
+│   ├── inventory
+│   └── patch.yml
+│
+├── scripts/        # PatchMgr CLI patching tool
 │   └── patchmgr
-├── lib/
-│   ├── precheck.sh
-│   ├── patching.sh
-│   ├── postcheck.sh
-│   ├── report.sh
-│   ├── reboot_check.sh
-│   ├── service_snapshot_pre.sh
-│   └── service_snapshot_post.sh
+│
+├── docs/           # Patch management documentation
+│   └── linuxpatchsop-v1.pdf
+│
+├── man/            # Manual page for PatchMgr
+│   └── patchmgr.1
+│
+├── lib/            # Supporting libraries for PatchMgr
+│
 ├── CHANGELOG.md
-├── patchmgr.1
-├── README.md
-└── tests/
-
+└── README.md
 ```
 
 ---
 
-## ⚙️ Installation (Development Mode)
+## PatchMgr CLI Usage
 
-Clone the repository:
-
-```
-
-git clone [https://github.com/AshwinSajii/Linux-Server-Patching-.git](https://github.com/AshwinSajii/Linux-Server-Patching-.git)
-cd Linux-Server-Patching-
+Run the patching tool locally:
 
 ```
-
-Run locally:
-
+./scripts/patchmgr
 ```
 
-sudo ./bin/patchmgr full -y
+The tool performs:
 
-```
+1. System update using the DNF package manager
+2. Kernel update handling
+3. Patch installation monitoring
+4. Optional reboot after patching
 
 ---
 
-## 🖥 System-wide Installation
+## Ansible Automation
 
-Install as a system command:
+Ansible automation allows patching **multiple Linux servers simultaneously**.
 
-```
-
-sudo mkdir -p /usr/local/lib/patchmgr
-sudo cp lib/*.sh /usr/local/lib/patchmgr/
-sudo cp bin/patchmgr /usr/local/bin/
-sudo chmod +x /usr/local/bin/patchmgr
+### Run the Playbook
 
 ```
-
-Now run from anywhere:
-
+ansible-playbook -i ansible/inventory ansible/patch.yml -K
 ```
 
-sudo patchmgr full -y
-
-```
+`-K` prompts for the sudo password required for privileged operations.
 
 ---
 
-## 📘 Usage
+## Ansible Workflow
 
-```
+The playbook performs the following steps:
 
-patchmgr precheck
-patchmgr apply
-patchmgr postcheck
-patchmgr report
-patchmgr full
-
-```
-
-### Optional Flags
-
-```
-
--y / --yes      Skip confirmation prompts
---dry-run       Simulate patching without making changes
-
-```
+1. Gather system facts
+2. Update package metadata
+3. Apply available patches
+4. Detect if a reboot is required
+5. Reboot the server automatically if necessary
 
 ---
 
-## 🔄 Patch Lifecycle Flow
-
-1. Precheck
-   - Hostname and uptime verification
-   - Disk usage validation
-   - Memory availability check
-   - Failed services detection
-
-2. Patch Apply
-   - Update package index
-   - Apply available upgrades
-   - Safety confirmation before execution
-
-3. Reboot Detection
-   - Check `/var/run/reboot-required`
-   - Prompt for reboot if required
-
-4. Postcheck
-   - Kernel version validation
-   - Service health verification
-   - Failure comparison
-
-5. Report Generation
-   - Structured patch summary
-   - Centralized log storage
-
----
-
-## 📂 Logging
-
-All logs and reports are stored in:
+## Example Output
 
 ```
-
-/var/log/patchmgr/
-
+PLAY RECAP
+localhost : ok=4 changed=0 failed=0 skipped=1
 ```
 
-Log types include:
-
-- Precheck logs
-- Patch execution logs
-- Postcheck validation logs
-- Patch summary reports
+This indicates the system was already fully patched and no reboot was required.
 
 ---
 
-## 🛡 Operational Safety Controls
+## Use Cases
 
-- Root privilege enforcement
-- Confirmation prompt before patching
-- Dry-run mode for simulation
-- Strict error handling (`set -euo pipefail`)
-- Structured logging for traceability
+This project demonstrates patch automation for:
 
----
-
-## 📘 Man Page
-
-After system installation:
-
-```
-
-man patchmgr
-
-```
+* Linux system administration
+* Infrastructure automation
+* DevOps environments
+* Enterprise patch maintenance workflows
 
 ---
 
-## 🎯 Purpose
+## Learning Objectives
 
-This project demonstrates:
+This project helps demonstrate hands-on experience with:
 
-- Structured Linux patch management workflow
-- Bash scripting best practices
-- CLI argument parsing
-- Production-style logging
-- Operational safety validation
-- Change tracking using versioning and changelog
-
-Designed to reflect real-world L2 Linux Administration patch management processes.
+* Linux patch management
+* Configuration management using Ansible
+* Automation of administrative tasks
+* Infrastructure maintenance practices
 
 ---
 
-## 👤 Author
+## Author
 
 Ashwin Saji
-```
-
----
+System Administrator | Linux | VMware | Automation
