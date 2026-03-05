@@ -1,31 +1,32 @@
-# Linux Server Patching Automation (PatchMgr)
+# PatchMgr — Linux Server Patching Automation
 
-PatchMgr is a Linux patch management project that automates server updates using both **Bash scripting** and **Ansible automation**.
+PatchMgr is a modular Linux patch lifecycle automation tool designed for Red Hat–based systems.
+It automates the full patch workflow including **pre-patch health checks, package updates, reboot detection, post-patch validation, and reporting**.
 
-The project demonstrates how Linux administrators can perform **system patching, kernel updates, and automated reboot handling** across servers.
-
-This repository combines **CLI-based patching tools** and **infrastructure automation with Ansible** to simulate real-world Linux maintenance workflows.
+The project also includes **Ansible automation** to demonstrate patch management across multiple servers.
 
 ---
 
 ## Features
 
-* Automated Linux system patching
+* Automated Linux patch installation using `dnf`
+* Pre-patch system health checks (disk, memory, uptime, failed services)
+* Post-patch validation
 * Kernel update detection
-* Conditional reboot handling
-* Ansible-based infrastructure automation
-* Patch execution audit capability
-* Modular project structure
+* Conditional reboot detection
+* Patch execution reporting
+* Modular Bash architecture
+* Ansible playbook for multi-server patch automation
 
 ---
 
-## Technologies Used
+## Tech Stack
 
-* Linux (RHEL / CentOS / Rocky Linux)
+* Linux (RHEL / Rocky / AlmaLinux compatible)
 * Bash scripting
 * Ansible
 * DNF package manager
-* System administration tools
+* systemd service monitoring
 
 ---
 
@@ -33,20 +34,25 @@ This repository combines **CLI-based patching tools** and **infrastructure autom
 
 ```
 Linux-Server-Patching
-├── ansible/        # Ansible automation for patching multiple servers
-│   ├── inventory
-│   └── patch.yml
 │
-├── scripts/        # PatchMgr CLI patching tool
-│   └── patchmgr
+├── scripts/
+│   └── patchmgr            # Main CLI patching tool
 │
-├── docs/           # Patch management documentation
+├── lib/
+│   ├── precheck.sh         # Pre-patch health checks
+│   ├── patching.sh         # Patch execution
+│   ├── postcheck.sh        # Post-patch validation
+│   └── report.sh           # Patch report generation
+│
+├── ansible/
+│   ├── inventory           # Target server list
+│   └── patch.yml           # Ansible patch playbook
+│
+├── docs/
 │   └── linuxpatchsop-v1.pdf
 │
-├── man/            # Manual page for PatchMgr
+├── man/
 │   └── patchmgr.1
-│
-├── lib/            # Supporting libraries for PatchMgr
 │
 ├── CHANGELOG.md
 └── README.md
@@ -56,24 +62,90 @@ Linux-Server-Patching
 
 ## PatchMgr CLI Usage
 
-Run the patching tool locally:
+Run the patch tool:
 
 ```
-./scripts/patchmgr
+sudo ./scripts/patchmgr <command>
 ```
 
-The tool performs:
+### Available Commands
 
-1. System update using the DNF package manager
-2. Kernel update handling
-3. Patch installation monitoring
-4. Optional reboot after patching
+```
+patchmgr precheck
+patchmgr apply
+patchmgr postcheck
+patchmgr report
+patchmgr full
+```
+
+### Example
+
+Run the full patch lifecycle:
+
+```
+sudo ./scripts/patchmgr full
+```
+
+This performs:
+
+1. Pre-patch health checks
+2. Package updates
+3. Reboot requirement detection
+4. Post-patch validation
+5. Patch report generation
+
+---
+
+## Example Output
+
+```
+==== PRE-PATCH CHECKS ====
+Hostname: server01
+Disk Usage: 21%
+Memory Usage: 5.5 GiB
+
+==== PATCH EXECUTION ====
+Applying system updates...
+
+==== POST CHECK ====
+Kernel: 6.x.x
+No reboot required
+
+==== PATCH SUMMARY REPORT ====
+Report saved at:
+/var/log/patchmgr/patch_report_<date>.txt
+```
+
+---
+
+## Patch Reports
+
+PatchMgr automatically generates a report after each run:
+
+```
+/var/log/patchmgr/patch_report_<timestamp>.txt
+```
+
+Reports contain:
+
+* system details
+* kernel version
+* uptime
+* failed services
+* patch execution summary
 
 ---
 
 ## Ansible Automation
 
-Ansible automation allows patching **multiple Linux servers simultaneously**.
+Ansible support demonstrates patching **multiple Linux servers simultaneously**.
+
+### Inventory Example
+
+```
+[linux_servers]
+localhost ansible_connection=local
+```
 
 ### Run the Playbook
 
@@ -81,52 +153,31 @@ Ansible automation allows patching **multiple Linux servers simultaneously**.
 ansible-playbook -i ansible/inventory ansible/patch.yml -K
 ```
 
-`-K` prompts for the sudo password required for privileged operations.
+`-K` prompts for the sudo password required for privileged tasks.
 
 ---
 
-## Ansible Workflow
+## Learning Goals
 
-The playbook performs the following steps:
-
-1. Gather system facts
-2. Update package metadata
-3. Apply available patches
-4. Detect if a reboot is required
-5. Reboot the server automatically if necessary
-
----
-
-## Example Output
-
-```
-PLAY RECAP
-localhost : ok=4 changed=0 failed=0 skipped=1
-```
-
-This indicates the system was already fully patched and no reboot was required.
-
----
-
-## Use Cases
-
-This project demonstrates patch automation for:
+This project demonstrates practical skills in:
 
 * Linux system administration
+* Patch management automation
 * Infrastructure automation
-* DevOps environments
-* Enterprise patch maintenance workflows
+* Bash scripting
+* Ansible configuration management
 
 ---
 
-## Learning Objectives
+## Version
 
-This project helps demonstrate hands-on experience with:
+PatchMgr v2.1
 
-* Linux patch management
-* Configuration management using Ansible
-* Automation of administrative tasks
-* Infrastructure maintenance practices
+Includes:
+
+* full patch lifecycle automation
+* reporting
+* Ansible integration
 
 ---
 
