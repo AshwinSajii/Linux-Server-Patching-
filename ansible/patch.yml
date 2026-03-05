@@ -13,6 +13,7 @@
       dnf:
         name: "*"
         state: latest
+        update_only: yes
 
     - name: Check reboot requirement
       command: needs-restarting -r

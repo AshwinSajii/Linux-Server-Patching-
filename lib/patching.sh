@@ -1,5 +1,14 @@
-#1/bin/bash
-echo "====PATCH EXECUTION===="
-sudo apt update
-sudo apt upgrade -y
+#!/bin/bash
 
+echo "==== PATCH EXECUTION ===="
+
+echo "Updating repository metadata..."
+sudo dnf makecache
+
+echo "Checking for available updates..."
+sudo dnf check-update || true
+
+echo "Applying system updates..."
+sudo dnf upgrade -y
+
+echo "Patch installation completed."
